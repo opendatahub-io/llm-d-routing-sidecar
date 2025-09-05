@@ -21,9 +21,9 @@ COPY internal/ internal/
 # was called. For example, if we call make image-build in a local env which has the Apple Silicon M1 SO
 # the docker BUILDPLATFORM arg will be linux/arm64 when for Apple x86 it will be linux/amd64. Therefore,
 # by leaving it empty we can ensure that the container and binary shipped on it will have the same platform.
-RUN CGO_ENABLED=0 GOOS=${TARGETOS:-linux} GOARCH=${TARGETARCH} go build -a -o bin/llm-d-routing-sidecar cmd/cmd.go
+RUN CGO_ENABLED=1 GOOS=${TARGETOS:-linux} GOARCH=${TARGETARCH} go build -a -o bin/llm-d-routing-sidecar cmd/cmd.go
 
-FROM registry.access.redhat.com/ubi9/ubi-micro:latest
+FROM registry.access.redhat.com/ubi9/ubi:latest
 WORKDIR /
 COPY --from=builder /workspace/bin/llm-d-routing-sidecar /app/llm-d-routing-sidecar
 USER 65532:65532
