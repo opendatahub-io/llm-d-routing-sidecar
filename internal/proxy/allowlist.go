@@ -46,6 +46,7 @@ const (
 
 // AllowlistValidator manages allowed prefill targets based on InferencePool resources
 type AllowlistValidator struct {
+	test	      string
 	logger        logr.Logger
 	dynamicClient dynamic.Interface
 	namespace     string
